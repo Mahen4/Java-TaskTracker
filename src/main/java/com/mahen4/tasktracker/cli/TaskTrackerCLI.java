@@ -1,7 +1,13 @@
 package main.java.com.mahen4.tasktracker.cli;
 
+import main.java.com.mahen4.tasktracker.service.TaskService;
+import main.java.com.mahen4.tasktracker.service.TaskServiceImpl;
+
 public class TaskTrackerCLI {
     public static void main(String[] args) {
+
+        TaskService taskService = new TaskServiceImpl();
+
         if(args.length == 0){
             System.out.println("task-tracker <comando> [argumentos]");
         }
@@ -14,6 +20,7 @@ public class TaskTrackerCLI {
                     System.out.println("Adicione uma tarefa nova");
                     System.out.println("task-tracker add <descrição>");
                 }
+                taskService.addTask(args[1]);
                 break;
             case "update":
                 if (args.length < 3) {
