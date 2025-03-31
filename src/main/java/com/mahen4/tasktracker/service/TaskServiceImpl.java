@@ -36,7 +36,14 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void deleteTask(int id) {
-
+        for(Task task: tasks){
+            if (task.getId() == id){
+                tasks.remove(task);
+                System.out.printf("Task [%d] removida!", id);
+                return;
+            }
+        }
+        System.out.println("Task não encontrada");
     }
 
     @Override

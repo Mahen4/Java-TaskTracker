@@ -8,7 +8,7 @@ public class TaskTrackerCLI {
 
         TaskService taskService = new TaskServiceImpl();
         // só para testes
-        // taskService.addTask("Teste1");
+        taskService.addTask("Teste1");
 
         if(args.length == 0){
             System.out.println("task-tracker <comando> [argumentos]");
@@ -39,6 +39,8 @@ public class TaskTrackerCLI {
                     System.out.println("Delete uma tarefa");
                     System.out.println("task-tracker delete <id>");
                 }
+                int deleteId = Integer.parseInt(args[1]);
+                taskService.deleteTask(deleteId);
                 break;
             case "mark-in-progress":
                 if (args.length < 2) {
