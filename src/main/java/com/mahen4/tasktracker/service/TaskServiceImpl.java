@@ -1,6 +1,7 @@
 package main.java.com.mahen4.tasktracker.service;
 
 import main.java.com.mahen4.tasktracker.model.Task;
+import main.java.com.mahen4.tasktracker.model.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class TaskServiceImpl implements TaskService{
         for(Task task: tasks){
             if (task.getId() == id){
                 tasks.remove(task);
+                // TODO tirar do repository
                 System.out.printf("Task [%d] removida!", id);
                 return;
             }
@@ -48,17 +50,33 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void markInProgress(int id) {
-
+        for(Task task: tasks){
+            if (task.getId() == id){
+                task.setStatus(TaskStatus.IN_PROGRESS);
+                // TODO salvar mudança no repository
+                System.out.printf("Task [%d] marcada como EM PROGRESSO\n", task.getId());
+                return;
+            }
+        }
+        System.out.println("Task com id " + id + "não encontrada");
     }
 
     @Override
     public void markDone(int id) {
-
+        for(Task task: tasks){
+            if (task.getId() == id){
+                task.setStatus(TaskStatus.DONE);
+                // TODO salvar mudança no repository
+                System.out.printf("Task [%d] marcada como FEITA\n", task.getId());
+                return;
+            }
+        }
+        System.out.println("Task com id " + id + "não encontrada");
     }
 
     @Override
     public List<Task> listAll() {
-        return List.of();
+        return tasks;
     }
 
     @Override

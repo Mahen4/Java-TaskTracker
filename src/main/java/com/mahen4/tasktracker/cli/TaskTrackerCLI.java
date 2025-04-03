@@ -8,7 +8,7 @@ public class TaskTrackerCLI {
 
         TaskService taskService = new TaskServiceImpl();
         // só para testes
-        taskService.addTask("Teste1");
+        // taskService.addTask("Teste1");
 
         if(args.length == 0){
             System.out.println("task-tracker <comando> [argumentos]");
@@ -47,12 +47,16 @@ public class TaskTrackerCLI {
                     System.out.println("Defina uma tarefa como em andamento");
                     System.out.println("task-tracker mark-in-progress <id>");
                 }
+                int inProgressId = Integer.parseInt(args[1]);
+                taskService.markInProgress(inProgressId);
                 break;
             case "mark-done":
                 if (args.length < 2) {
                     System.out.println("Defina uma tarefa como feita");
                     System.out.println("task-tracker mark-done <id>");
                 }
+                int doneId = Integer.parseInt(args[1]);
+                taskService.markDone(doneId);
                 break;
             case "list":
                 System.out.println("Mostra todas as tarefas");

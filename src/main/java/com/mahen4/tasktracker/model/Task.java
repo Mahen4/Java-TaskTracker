@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Task {
     private int id;
     private String description;
-    private String status;
+    private TaskStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime updateAt;
 
@@ -16,7 +16,7 @@ public class Task {
     public Task(int id, String description){
         this.id = id;
         this.description = description;
-        this.status = "A FAZER";
+        this.status = TaskStatus.TODO;
         this.createdAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
     }
@@ -37,11 +37,11 @@ public class Task {
         this.description = description;
     }
 
-    public String getStatus() {
+    public TaskStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TaskStatus status) {
         this.status = status;
     }
 
@@ -63,6 +63,7 @@ public class Task {
 
     @Override
     public String toString(){
+        // TODO melhorar formatação
         return "Task [" + getId() +"] - descrição = " + getDescription() + ", status: " + getStatus() + ", criado em: " + getCreatedAt() + ", ultima vez modificado em: " + getUpdateAt();
     }
 
