@@ -1,12 +1,19 @@
 package main.java.com.mahen4.tasktracker.cli;
 
+import main.java.com.mahen4.tasktracker.model.Task;
+import main.java.com.mahen4.tasktracker.repository.TaskRepository;
+import main.java.com.mahen4.tasktracker.repository.TaskRepositoryImpl;
 import main.java.com.mahen4.tasktracker.service.TaskService;
 import main.java.com.mahen4.tasktracker.service.TaskServiceImpl;
+
+import java.util.List;
 
 public class TaskTrackerCLI {
     public static void main(String[] args) {
 
-        TaskService taskService = new TaskServiceImpl();
+        TaskRepository taskRepository = new TaskRepositoryImpl();
+
+        TaskService taskService = new TaskServiceImpl(taskRepository);
         // só para testes
         // taskService.addTask("Teste1");
 
@@ -59,9 +66,16 @@ public class TaskTrackerCLI {
                 taskService.markDone(doneId);
                 break;
             case "list":
-                System.out.println("Mostra todas as tarefas");
-                System.out.println("task-tracker list [status]");
-                break;
+                if(args.length == 1){
+                    List<Task> allTasks = taskService.listAllTask();
+                    taskService.printAllTasks(allTasks);
+                } else {
+                    // TODO editar
+                    System.out.println("Mostra todas as tarefas");
+                    System.out.println("task-tracker list [status]");
+                    taskService.listAllTask();
+                    break;
+                }
         }
 
     }

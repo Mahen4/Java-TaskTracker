@@ -12,7 +12,7 @@ public interface TaskService {
     void markInProgress(int id);
     void markDone(int id);
 
-    List<Task> listAll();
+    List<Task> listAllTask();
 
     List<Task> listByStatus(String status);
 

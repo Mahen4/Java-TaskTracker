@@ -2,15 +2,23 @@ package main.java.com.mahen4.tasktracker.service;
 
 import main.java.com.mahen4.tasktracker.model.Task;
 import main.java.com.mahen4.tasktracker.model.TaskStatus;
+import main.java.com.mahen4.tasktracker.repository.TaskRepository;
+import main.java.com.mahen4.tasktracker.repository.TaskRepositoryImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TaskServiceImpl implements TaskService{
 
-    private int nextId = 1;
-    private List<Task> tasks = new ArrayList<>();
-    // TODO private TaskRepository taskRepository;
+    private int nextId;
+    private List<Task> tasks;
+    private TaskRepository taskRepository;
+
+    public TaskServiceImpl(TaskRepository taskRepository){
+        super();
+        this.taskRepository = taskRepository;
+        this.tasks = taskRepository.loadTask();
+        this.nextId = tasks.isEmpty() ? 1 : tasks.getLast().getId() + 1;
+    }
 
     @Override
     public void addTask(String description) {
@@ -18,6 +26,8 @@ public class TaskServiceImpl implements TaskService{
         Task task = new Task(nextId, description);
         System.out.println("Task criada!");
         System.out.printf("Task [%d]\nDescrição: %s\nStatus: %s\n", task.getId(), task.getDescription(), task.getStatus());
+        System.out.println(task.getCreatedAt());
+        System.out.println(task.getUpdatedAt());
         nextId++; // TODO Tirar depois com o repository feito
         tasks.add(task);
     }
@@ -27,6 +37,7 @@ public class TaskServiceImpl implements TaskService{
         for(Task task : tasks){
             if (task.getId() == id){
                 task.setDescription(description);
+                // TODO atualizar no repository
                 System.out.println("Task atualizada!");
                 System.out.printf("Task [%d]\nDescrição: %s\nStatus: %s\n", task.getId(), task.getDescription(), task.getStatus());
                 return;
@@ -75,7 +86,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public List<Task> listAll() {
+    public List<Task> listAllTask() {
         return tasks;
     }
 
@@ -85,7 +96,13 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public void printAllTasks(List<Task> taskList) {
-
+    public void printAllTasks(List<Task> tasks) {
+        if(tasks.isEmpty()) {
+            System.out.println("No Tasks Found");
+        } else {
+            for(Task task : tasks) {
+                System.out.println(task);
+            }
+        }
     }
 }
