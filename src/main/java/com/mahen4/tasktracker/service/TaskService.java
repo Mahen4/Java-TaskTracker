@@ -1,6 +1,7 @@
 package main.java.com.mahen4.tasktracker.service;
 
 import main.java.com.mahen4.tasktracker.model.Task;
+import main.java.com.mahen4.tasktracker.model.TaskStatus;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface TaskService {
 
     List<Task> listAllTask();
 
-    List<Task> listByStatus(String status);
+    List<Task> listByStatus(TaskStatus status);
 
     void printAllTasks (List<Task> taskList);
 }

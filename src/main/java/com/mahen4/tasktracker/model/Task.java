@@ -61,6 +61,10 @@ public class Task {
         this.updatedAt = updatedAt;
     }
 
+    public void updateTaskDate(){
+        this.updatedAt = LocalDateTime.now();
+    }
+
     @Override
     public String toString(){
         return "Task [" + getId() +"] - descrição = " + getDescription() + ", status: " + getStatus() + ", criado em: " + getCreatedAt() + ", ultima vez modificado em: " + getUpdatedAt();

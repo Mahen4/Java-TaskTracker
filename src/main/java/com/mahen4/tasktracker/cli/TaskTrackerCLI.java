@@ -1,6 +1,7 @@
 package main.java.com.mahen4.tasktracker.cli;
 
 import main.java.com.mahen4.tasktracker.model.Task;
+import main.java.com.mahen4.tasktracker.model.TaskStatus;
 import main.java.com.mahen4.tasktracker.repository.TaskRepository;
 import main.java.com.mahen4.tasktracker.repository.TaskRepositoryImpl;
 import main.java.com.mahen4.tasktracker.service.TaskService;
@@ -69,8 +70,16 @@ public class TaskTrackerCLI {
                 if(args.length == 1){
                     List<Task> allTasks = taskService.listAllTask();
                     taskService.printAllTasks(allTasks);
-                } else {
-                    // TODO editar
+                } else if (args.length == 2){
+                    String statusArg = args[1].toUpperCase().replaceAll("-","_");
+                    try{
+                        TaskStatus status = TaskStatus.valueOf(statusArg);
+                        List<Task> filteredList = taskService.listByStatus(status);
+                        taskService.printAllTasks(filteredList);
+                    } catch (IllegalArgumentException e){
+                        System.out.println("Status");
+                    }
+
                     System.out.println("Mostra todas as tarefas");
                     System.out.println("task-tracker list [status]");
                     taskService.listAllTask();

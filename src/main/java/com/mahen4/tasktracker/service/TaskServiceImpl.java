@@ -3,9 +3,9 @@ package main.java.com.mahen4.tasktracker.service;
 import main.java.com.mahen4.tasktracker.model.Task;
 import main.java.com.mahen4.tasktracker.model.TaskStatus;
 import main.java.com.mahen4.tasktracker.repository.TaskRepository;
-import main.java.com.mahen4.tasktracker.repository.TaskRepositoryImpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TaskServiceImpl implements TaskService{
 
@@ -22,14 +22,11 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void addTask(String description) {
-        // TODO add Task to Json
         Task task = new Task(nextId, description);
-        System.out.println("Task criada!");
-        System.out.printf("Task [%d]\nDescrição: %s\nStatus: %s\n", task.getId(), task.getDescription(), task.getStatus());
-        System.out.println(task.getCreatedAt());
-        System.out.println(task.getUpdatedAt());
-        nextId++; // TODO Tirar depois com o repository feito
         tasks.add(task);
+        taskRepository.saveTasks(tasks);
+        System.out.println("Task criada com sucesso!");
+        System.out.println(task);
     }
 
     @Override
@@ -37,13 +34,14 @@ public class TaskServiceImpl implements TaskService{
         for(Task task : tasks){
             if (task.getId() == id){
                 task.setDescription(description);
-                // TODO atualizar no repository
+                task.updateTaskDate();
+                taskRepository.saveTasks(tasks);
                 System.out.println("Task atualizada!");
-                System.out.printf("Task [%d]\nDescrição: %s\nStatus: %s\n", task.getId(), task.getDescription(), task.getStatus());
+                System.out.println(task);
                 return;
             }
         }
-        System.out.println("Task não encontrada");
+        System.out.printf("Task com ID [%d] não encontrada", id);
     }
 
     @Override
@@ -51,12 +49,12 @@ public class TaskServiceImpl implements TaskService{
         for(Task task: tasks){
             if (task.getId() == id){
                 tasks.remove(task);
-                // TODO tirar do repository
+                taskRepository.saveTasks(tasks);
                 System.out.printf("Task [%d] removida!", id);
                 return;
             }
         }
-        System.out.println("Task não encontrada");
+        System.out.printf("Task com ID [%d] não encontrada", id);
     }
 
     @Override
@@ -64,12 +62,13 @@ public class TaskServiceImpl implements TaskService{
         for(Task task: tasks){
             if (task.getId() == id){
                 task.setStatus(TaskStatus.IN_PROGRESS);
-                // TODO salvar mudança no repository
+                task.updateTaskDate();
+                taskRepository.saveTasks(tasks);
                 System.out.printf("Task [%d] marcada como EM PROGRESSO\n", task.getId());
                 return;
             }
         }
-        System.out.println("Task com id " + id + "não encontrada");
+        System.out.printf("Task com ID [%d] não encontrada", id);
     }
 
     @Override
@@ -77,12 +76,13 @@ public class TaskServiceImpl implements TaskService{
         for(Task task: tasks){
             if (task.getId() == id){
                 task.setStatus(TaskStatus.DONE);
-                // TODO salvar mudança no repository
+                task.updateTaskDate();
+                taskRepository.saveTasks(tasks);
                 System.out.printf("Task [%d] marcada como FEITA\n", task.getId());
                 return;
             }
         }
-        System.out.println("Task com id " + id + "não encontrada");
+        System.out.printf("Task com ID [%d] não encontrada", id);
     }
 
     @Override
@@ -91,8 +91,9 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public List<Task> listByStatus(String status) {
-        return List.of();
+    public List<Task> listByStatus(TaskStatus status) {
+        List<Task> filteredTasks = tasks.stream().filter(task -> task.getStatus() == status).collect(Collectors.toList());
+        return filteredTasks;
     }
 
     @Override

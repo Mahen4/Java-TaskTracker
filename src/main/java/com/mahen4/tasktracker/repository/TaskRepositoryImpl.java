@@ -3,10 +3,7 @@ package main.java.com.mahen4.tasktracker.repository;
 import main.java.com.mahen4.tasktracker.model.Task;
 import main.java.com.mahen4.tasktracker.util.JsonUtil;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +38,14 @@ public class TaskRepositoryImpl implements TaskRepository {
 
     @Override
     public void saveTasks(List<Task> tasks) {
+        String jsonString = JsonUtil.convertTaskToJson(tasks);
+        File file = new File(FILE_PATH);
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            writer.write(jsonString);
+        } catch (IOException e) {
+            System.err.println("Error saving tasks: " + e.getMessage());
+        }
     }
 
 }

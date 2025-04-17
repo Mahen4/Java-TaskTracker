@@ -103,4 +103,25 @@ public class JsonUtil {
         return entries.toArray(new String[0]);
     }
 
+    public static String convertTaskToJson(List<Task> tasksList){
+
+        StringBuilder jsonTasks = new StringBuilder("[");
+
+        for (int i = 0; i < tasksList.size(); i++){
+            Task task = tasksList.get(i);
+            jsonTasks.append("{")
+                    .append("\"id\":").append(task.getId()).append(",")
+                    .append("\"description\":\"").append(task.getDescription()).append("\",")
+                    .append("\"status\":\"").append(task.getStatus().toString()).append("\",")
+                    .append("\"createdAt\":\"").append(task.getCreatedAt() != null ? task.getCreatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null).append("\",")
+                    .append("\"updatedAt\":\"").append(task.getUpdatedAt() != null ? task.getUpdatedAt().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME) : null).append("\"")
+                    .append("}");
+            if (i < tasksList.size() - 1){
+                jsonTasks.append(",");
+            }
+        }
+        jsonTasks.append("]");
+        return jsonTasks.toString();
+    }
+
 }
