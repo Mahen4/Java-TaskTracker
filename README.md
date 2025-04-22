@@ -12,9 +12,9 @@ This project was inspired by the [roadmap.sh](https://roadmap.sh/projects/task-t
 	`update <id> <new_description>`
 - Delete tasks
 	`delete <id>`
-- Mark tasks as `in progress`
+- Mark tasks as "in progress"
     `mark-in-progress <id>`
-- Mark tasks as `done`
+- Mark tasks as "done"
 	`mark-done <id>`
 - List all tasks
     `list`
