@@ -2,7 +2,7 @@
 
 A lightweight command-line based task manager, built entirely with **Java 21**, without the use of any external libraries or frameworks.
 
-This project was inspired by the [roadmap.sh](https://roadmap.sh/projects/task-tracker) challenge and designed to help reinforce core programming concepts in Java, such as **OOP, layered architecture, file handling**, and **error management**.
+This project was inspired by the [roadmap.sh](https://roadmap.sh/projects/task-tracker) backend project idea and designed to help reinforce core programming concepts in Java, such as **OOP, layered architecture, file handling**, and **error management**.
 
 ## 📌 Features & Usage
 
@@ -64,4 +64,4 @@ This project was designed to:
 - Apply **SOLID principles** and **clean code practices**
 
 ---
-💡 Project inspired by the "Task Tracker CLI" challenge on [roadmap.sh](https://roadmap.sh) and similar open-source implementations. Built from scratch for learning purposes.
+💡 Project inspired by the "Task Tracker CLI" project on [roadmap.sh](https://roadmap.sh) and similar open-source implementations. Built from scratch for learning purposes.
