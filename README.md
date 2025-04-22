@@ -30,7 +30,7 @@ Data is persisted in a `.json` file automatically created and updated in the cur
 
 
 ## 💡 Tech Stack & Structure
-- ✅ **Language:** Java 21 (no external dependencies)
+- ☕ **Language:** Java 21 (no external dependencies)
 - 📁 **Architecture:** Layered (Model → Repository → Service → CLI)
 - 📄 **Storage:** JSON file using native file system APIs
 - 🛠️ **Structure:**
