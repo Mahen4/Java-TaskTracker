@@ -52,7 +52,7 @@ public class TaskTrackerCLI {
                 break;
             case "mark-in-progress":
                 if (args.length < 2) {
-                    System.out.println("Defina uma tarefa como em andamento");
+                    System.out.println("Defina uma tarefa como em andamento (IN_PROGRESS)");
                     System.out.println("task-tracker mark-in-progress <id>");
                 }
                 int inProgressId = Integer.parseInt(args[1]);
@@ -60,7 +60,7 @@ public class TaskTrackerCLI {
                 break;
             case "mark-done":
                 if (args.length < 2) {
-                    System.out.println("Defina uma tarefa como feita");
+                    System.out.println("Defina uma tarefa como feita (DONE)");
                     System.out.println("task-tracker mark-done <id>");
                 }
                 int doneId = Integer.parseInt(args[1]);
@@ -70,21 +70,22 @@ public class TaskTrackerCLI {
                 if(args.length == 1){
                     List<Task> allTasks = taskService.listAllTask();
                     taskService.printAllTasks(allTasks);
-                } else if (args.length == 2){
-                    String statusArg = args[1].toUpperCase().replaceAll("-","_");
-                    try{
+                } else if (args.length == 2) {
+                    String statusArg = args[1].toUpperCase().replaceAll("-", "_");
+                    try {
                         TaskStatus status = TaskStatus.valueOf(statusArg);
                         List<Task> filteredList = taskService.listByStatus(status);
                         taskService.printAllTasks(filteredList);
-                    } catch (IllegalArgumentException e){
-                        System.out.println("Status");
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("Status inválido. Status disponíveis: TODO, IN_PROGRESS, DONE");
+                        e.printStackTrace();
                     }
-
-                    System.out.println("Mostra todas as tarefas");
-                    System.out.println("task-tracker list [status]");
-                    taskService.listAllTask();
-                    break;
+                } else {
+                    System.out.println("Modo de uso: list [status]");
                 }
+                break;
+            default:
+                System.out.println("Comando inválido. Comandos disponíveis: add, update, delete, mark-in-progress, mark-done, list");
         }
 
     }

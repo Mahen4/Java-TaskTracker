@@ -9,7 +9,7 @@ import java.util.List;
 
 public class TaskRepositoryImpl implements TaskRepository {
 
-    private static final String FILE_PATH = "src/main/java/com/mahen4/tasktracker/tasks.json";
+    private static final String FILE_PATH = "tasks.json";
 
     @Override
     public List<Task> loadTask() {

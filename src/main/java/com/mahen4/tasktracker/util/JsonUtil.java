@@ -13,6 +13,11 @@ public class JsonUtil {
 
     public static List<Task> parseJsonToString(String json) {
         List<Task> tasks = new ArrayList<>();
+
+        if (json == null || json.trim().isEmpty()) {
+            return tasks;
+        }
+
         json = json.substring(1, json.length() - 1).trim().replaceAll("\\s", "");
         String[] entries = splitJsonEntries(json);
 

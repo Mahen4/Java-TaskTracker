@@ -64,7 +64,7 @@ public class TaskServiceImpl implements TaskService{
                 task.setStatus(TaskStatus.IN_PROGRESS);
                 task.updateTaskDate();
                 taskRepository.saveTasks(tasks);
-                System.out.printf("Task [%d] marcada como EM PROGRESSO\n", task.getId());
+                System.out.printf("Task [%d] marcada como EM PROGRESSO (IN_PROGRESS)\n", task.getId());
                 return;
             }
         }
@@ -78,7 +78,7 @@ public class TaskServiceImpl implements TaskService{
                 task.setStatus(TaskStatus.DONE);
                 task.updateTaskDate();
                 taskRepository.saveTasks(tasks);
-                System.out.printf("Task [%d] marcada como FEITA\n", task.getId());
+                System.out.printf("Task [%d] marcada como FEITA (DONE)\n", task.getId());
                 return;
             }
         }
@@ -99,7 +99,7 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public void printAllTasks(List<Task> tasks) {
         if(tasks.isEmpty()) {
-            System.out.println("No Tasks Found");
+            System.out.println("Nenhuma task encontrada");
         } else {
             for(Task task : tasks) {
                 System.out.println(task);
